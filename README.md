@@ -23,6 +23,7 @@ Conventions between Kafka topic name & key-value Schema name:
 - Value schema name: "{topic}-value"
 
 ## Running From Docker Image
+To be done
 
 ## Building With Docker
 
@@ -59,6 +60,19 @@ docker-compose -f ./docker/kafka_schema-registry_kafka-swagger-rest.yml up
 Open Kafka Swagger Rest in the browser:
 
 http://localhost:8080/swagger/swagger-ui.html
+
+## Running Locally Without Docker
+
+To be done
+## Running in Kubernetes
+To be done
+
+# Guides
+
+To be done
+
+## Connecting to a Secure Broker
+To be done
 
 # Configuration
 
