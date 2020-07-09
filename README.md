@@ -1,25 +1,73 @@
 # Kafka Swagger Rest
 
-Kafka Swagger Rest is a Swagger API that allows to send data to kafka topics via Restful api.
+<em>Kafka Swagger Rest is a Swagger API that allows you to send data to Kafka topics via Restful API. </em> 
+
+It comes in handy when you want to check what topics are available in Kafka and what Schema is available for Kafka topics, or to send messages to Kafka topics using Rest API. 
 
 ![diagram.svg](images/diagram.png)
 
-Convention between Kafka topic name & key-value Schema name:
+# Features
+* **Check topics available in Kafka**  
+* **Check what schema is available for Kafka topics** 
+* **Send messages to Kafka topics via Rest API** 
+* **Supports 2 types of message formats for topics: plain text and Avro** 
+
+
+# Getting Started
+
+Conventions between Kafka topic name & key-value Schema name:
  
 - Key schema name: "{topic}-key"
 - Value schema name: "{topic}-value"
 
-#### Usages:
-- You want to check what topics is available in kafka and what schema is available for topics
-- You want to send messages into topics via Rest API
+## Running From Docker Image
 
-Supports 2 types of message format for topic:
-- plain text
-- avro
+## Building With Docker
 
-## Configuration
+Steps to build Kafka Swagger Rest locally with Docker:  
 
-Docker compose example:
+1. Install prerequisites: Java and Docker
+2. Clone this repository and open a terminal in the directory of the project
+3. Build a Docker container with Kafka Swagger Rest
+4. Start Kafka Swagger Rest  
+5. Navigate to Kafka Swagger Rest in the browser
+
+### Prerequisites
+
+* Java 11 or newer
+* Docker 
+
+### Building
+
+Build a Docker container with Kafka Swagger Rest: 
+```sh
+./mvnw clean install
+``` 
+ 
+As a result of building you'll get a Docker image: 
+
+kafka-swagger-rest:0.1-SNAPSHOT-latest
+
+```sh
+./mvnw clean install
+``` 
+Start Kafka Swagger Rest:
+
+```sh
+docker-compose -f ./docker/kafka_schema-registry_kafka-swagger-rest.yml up
+``` 
+
+Open Kafka Swagger Rest in the browser:
+
+http://localhost:8080/swagger/swagger-ui.html
+
+# Configuration
+
+## Configuration File
+
+Example of how to configure your Docker Compose file - docker-compose.yml: 
+
+```sh
 
     version: '2'
     services:
@@ -47,8 +95,12 @@ Docker compose example:
           
           swagger.kafka[0].ignoreTopics: 'topicA, topicB, topicC'
 
-Another example docker compose:
 
+```
+
+Another example of the Docker Compose configuration file:
+
+```sh
     version: '2'
     services:
       kafka-swagger-rest:
@@ -74,13 +126,24 @@ Another example docker compose:
           swagger_kafka_0_topicConfig_0_autofillKeyParamName: 'ID'
           
           swagger_kafka_0_ignoreTopics: 'topicA, topicB, topicC'
+```
 
 
-| key | description |
+* `version`: the version of docker-compose
+* `services`: our container(s)
+* `image`: what image is used
+* `ports`: on what port a container will launch
+* `command`:
+* `environment`:
+
+
+## Variables
+
+| Key | Description |
 | --- | ----------- |
-| swagger_kafka[0]_groupName | groupName for swagger spec |
-| swagger_kafka[0]_bootstrapServers | kafka bootstrapServers |
-| swagger_kafka[0]_schemaRegistryUrl | url to kafka-schema-registry |
+| swagger_kafka[0]_groupName | groupName for Swagger spec |
+| swagger_kafka[0]_bootstrapServers | Kafka bootstrapServers |
+| swagger_kafka[0]_schemaRegistryUrl | URL to kafka-schema-registry |
 | --- | --- |
 | swagger.kafka[0].consumerConfig.* | Group of configs for consumer. Consumer is used to read schemas from kafka topic '_schemas'. http://kafka.apache.org/documentation.html#consumerconfigs - here you can find all config keys for consumer config |
 | swagger.kafka[0].producerConfig.* | Group of configs for producer. Producer is used to send data into kafka topics. http://kafka.apache.org/documentation.html#producerconfigs - here you can find all config keys for producer config |  
@@ -91,20 +154,4 @@ Another example docker compose:
 | --- | --- |
 | swagger_kafka_0_ignoreTopics | ignore topics list, delimiter: ',' |
 
-## How to build
-Required:
-- java 11 +
-- docker
-
-
-    run ./mvnw clean install
-    
-Build results:
-- docker image: kafka-swagger-rest:0.1-SNAPSHOT-latest
-
-## Quick start in docker:
-
-    build application: ./mvnw clean install
-    docker-compose -f ./docker/kafka_schema-registry_kafka-swagger-rest.yml up
-    open in browser: http://localhost:8080/swagger/swagger-ui.html
 
