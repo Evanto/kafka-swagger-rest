@@ -1,5 +1,7 @@
 # Kafka Swagger Rest
 
+![Kafka UI Price Free](images/free-open-source.svg)
+
 <em>Kafka Swagger Rest is a Swagger API that allows you to send data to Kafka topics via Restful API. </em> 
 
 It comes in handy when you want to check what topics are available in Kafka and what Schema is available for Kafka topics, or to send messages to Kafka topics using Rest API. 
@@ -48,9 +50,6 @@ As a result of building you'll get a Docker image:
 
 kafka-swagger-rest:0.1-SNAPSHOT-latest
 
-```sh
-./mvnw clean install
-``` 
 Start Kafka Swagger Rest:
 
 ```sh
